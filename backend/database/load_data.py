@@ -101,11 +101,10 @@ def main():
             file_id = upload_image(waifu["name"], waifu["display_picture"], drive_service, folder_id)
             share_file(drive_service, file_id)
             url = "https://drive.google.com/file/d/" + file_id
+            image_url = "https://drive.google.com/uc?export=view&id=" + file_id
             print(url)
-            pool.execute("INSERT INTO waifus(ID,waifu_name,likes,display_picture,image_url,anime_name) VALUES(" + str(waifu["id"]) + ", '" + waifu["name"].replace("'", "´") + 
-            "', " + str(waifu["likes"]) + ", '" + waifu["display_picture"] + "', '" + url + "', '" + waifu["series"]["name"].replace("'", "´") + "')")
-            print("waifu processed: " + waifu["name"])
-
+            pool.execute("INSERT INTO waifus(ID,waifu_name,likes,display_picture,image_url,anime_name,image_id,html_image_url) VALUES(" + str(waifu["id"]) + ", N'" + waifu["name"].replace("'", "´") + 
+            "', " + str(waifu["likes"]) + ", N'" + waifu["display_picture"] + "', '" + url + "', N'" + waifu["series"]["name"].replace("'", "´") + "', N'" + file_id + "', N'" + image_url + "')")
     
     pool.dispose()
 
